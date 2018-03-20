@@ -1,4 +1,4 @@
-<form (submit)="onSubmit($event)">
+<form (submit)="onSubmit($event)" *ngIf='user'>
   <mat-form-field class="example-full-width">
     <input matInput type="text" class="form-control" name="name" id="name" [(ngModel)]="user.name" placeholder="Name">
   </mat-form-field>

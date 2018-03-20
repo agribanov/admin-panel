@@ -3,41 +3,43 @@ import { User } from './models/User';
 import { USERS } from './users-mock';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { HttpClient } from '@angular/common/http';
+
+const USERS_URL = 'http://5a85a7b1085fdd00127042ad.mockapi.io/users';
 
 @Injectable()
 export class UsersService {
   users: User[] = USERS
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   getList(): Observable<User[]> {
-    return of(this.users);
+    return this.http.get<User[]>(USERS_URL);
   }
 
   getUser(id: string): Observable<User>{
-    return of(this.users.find((c) => c.id === id ));
+    const url = this.getUserUrl(id);
+
+    return this.http.get<User>(url);
   }
 
   addUser(user: User): Observable<User> {
-    const id = Date.now();
-    const newUser:User = {...user};
-    newUser.id = String(Date.now());
-
-    this.users = [...this.users, newUser];
-
-    return of(newUser);
+    return this.http.post<User>(USERS_URL, user);
   }
 
   updateUser(user: User) {
-    this.users = this.users.map(c => c.id === user.id ? user : c);
+    const url = this.getUserUrl(user.id);
 
-    return of(user);
+    return this.http.put<User>(url, user);
   }
 
   deleteUser(userId: string) {
-    this.users = this.users.filter(c => c.id !== userId);
+    const url = this.getUserUrl(userId);
+    return this.http.delete(url);
+  }
 
-    return of(null);
+  getUserUrl(id: string): string{
+    return `${USERS_URL}/${id}`;
   }
 
 }
