@@ -1,0 +1,18 @@
+<form (submit)="onSubmit($event)">
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" class="form-control" name="name" id="name" [(ngModel)]="user.name" placeholder="Name">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" class="form-control" name="surname" id="surname" [(ngModel)]="user.surname" placeholder="Surname">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" class="form-control" name="login" id="login" [(ngModel)]="user.login" placeholder="Login">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" class="form-control" name="email" id="email" [(ngModel)]="user.email" placeholder="Email">
+  </mat-form-field>
+  <button mat-raised-button color="primary">Save</button>
+</form>
